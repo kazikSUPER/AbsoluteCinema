@@ -1,4 +1,4 @@
-﻿namespace AbsoluteCinema.PatternExamples.SingleTone;
+﻿﻿namespace AbsoluteCinema.PatternExamples.SingleTone;
 
 public class DatabaseService
 {
