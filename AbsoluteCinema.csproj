@@ -7,10 +7,4 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
-    <ItemGroup>
-      <Folder Include="PatternExamples\AbstractFactory\" />
-      <Folder Include="PatternExamples\Builder\" />
-      <Folder Include="PatternExamples\ObjectPool\" />
-    </ItemGroup>
-
 </Project>
