@@ -11,6 +11,7 @@ using AbsoluteCinema.PatternExamples.Structural.Adapter;
 using AbsoluteCinema.PatternExamples.Structural.Bridge.Implementation.Channels;
 using AbsoluteCinema.PatternExamples.Structural.Bridge.Implementation.NotificationType;
 using AbsoluteCinema.PatternExamples.Structural.Composite;
+using AbsoluteCinema.PatternExamples.Structural.Decorator;
 using AbsoluteCinema.PatternExamples.Structural.Proxy;
 
 namespace AbsoluteCinema;
@@ -29,12 +30,18 @@ class Program
         /////////////////////////////////
         
         ////////////////////////////////
-        /*AdapterDemo();
-        BridgeDemo();*/
+        Console.WriteLine("\nAdapterDemo:\n");
+        AdapterDemo();
+        Console.WriteLine("\nBridgeDemo:\n");
+        BridgeDemo();
+        Console.WriteLine("\nCompositeDemo:\n");
         CompositeDemo();
-        /*FlyWeightDemo();
-
-        ProxyDemo();*/
+        Console.WriteLine("\nFlyWeightDemo:\n");
+        FlyWeightDemo();
+        Console.WriteLine("\nDecoratorDemo:\n");
+        DecoratorDemo();
+        Console.WriteLine("\nProxyDemo:\n");
+        ProxyDemo();
         ////
     }
 
@@ -364,6 +371,28 @@ class Program
 
         Console.WriteLine($"Total genre flyweights created: {GenreFactory.GetCreatedGenresCount()}");
 
+    }
+
+    private static void DecoratorDemo()
+    {
+        IAccount Acc1 = new Account
+        {
+            Name = "Acc1",
+            Age = 20
+        };
+        IAccount Acc2 = new Account
+        {
+            Name = "Acc2",
+            Age = 25
+        };
+        Console.WriteLine(Acc1.GetAccount() + "\n" + Acc2.GetAccount());
+        Acc1 = new HDAccount(Acc1);
+        Acc2 = new DownloaderAccount(Acc2);
+        Console.WriteLine("--------------------------");
+        Console.WriteLine(Acc1.GetAccount() + "\n" + Acc2.GetAccount());
+        Acc1 = new DownloaderAccount(Acc1);
+        Console.WriteLine("--------------------------");
+        Console.WriteLine(Acc1.GetAccount() + "\n" + Acc2.GetAccount());
     }
 
     private static void ProxyDemo()
