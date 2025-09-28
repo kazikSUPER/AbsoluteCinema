@@ -1,9 +1,15 @@
-﻿using AbsoluteCinema.PatternExamples.ObjectPool;
-using AbsoluteCinema.PatternExamples.Builder;
-using AbsoluteCinema.PatternExamples.AbstractFactory;
-using AbsoluteCinema.PatternExamples.FactoryMethod;
-using AbsoluteCinema.PatternExamples.Prototype;
-using AbsoluteCinema.PatternExamples.SingleTone;
+﻿using AbsoluteCinema.PatternExamples.Creational.AbstractFactory;
+using AbsoluteCinema.PatternExamples.Creational.Builder;
+using AbsoluteCinema.PatternExamples.Creational.FactoryMethod;
+using AbsoluteCinema.PatternExamples.Creational.ObjectPool;
+using AbsoluteCinema.PatternExamples.Creational.Prototype;
+using AbsoluteCinema.PatternExamples.Creational.SingleTone;
+using AbsoluteCinema.PatternExamples.Creational.StaticFactory;
+using AbsoluteCinema.PatternExamples.Shared.Enums;
+using AbsoluteCinema.PatternExamples.Shared.Models;
+using AbsoluteCinema.PatternExamples.Structural.Bridge.Implementation.Channels;
+using AbsoluteCinema.PatternExamples.Structural.Bridge.Implementation.NotificationType;
+using AbsoluteCinema.PatternExamples.Structural.Proxy;
 
 namespace AbsoluteCinema;
 
@@ -12,14 +18,25 @@ class Program
     public static void Main()
     {
         /////////////////////////////////
-        SingletoneDemo();
-        PrototypeDemo();
-        FactoryMethodDemo();
-        AbstractFactoryDemo();
-        BuilderDemo();
-        ObjectPoolDemo();
+        //SingletoneDemo();
+        //PrototypeDemo();
+        //FactoryMethodDemo();
+        //AbstractFactoryDemo();
+        //BuilderDemo();
+        //ObjectPoolDemo();
         /////////////////////////////////
+        
+        ////////////////////////////////
+        
+        BridgeDemo();
+
+        FlyWeightDemo();
+
+        ProxyDemo();
+        ////
     }
+
+    #region Creational Patterns
 
     private static void SingletoneDemo()
     {
@@ -184,6 +201,7 @@ class Program
             .CalculatePrice()
             .Build();
         customTicket.ShowTicket();
+
     }
 
     private static void ObjectPoolDemo()
@@ -195,10 +213,20 @@ class Program
 
         Console.WriteLine("Multiple users watching movies:\n");
 
-        streamPool.GetPoolStatus();
-        streamingService.StartMovieForUser("kazik", "The Godfather", "4K");
-        streamingService.StartMovieForUser("vladyslave", "Drunken Master 2");
-        streamingService.ShowActiveUsers();
+        var thrdA = new Thread(() =>
+        {
+            streamPool.GetPoolStatus();
+            streamingService.StartMovieForUser("kazik", "The Godfather", "4K");
+        });
+        thrdA.Start();
+
+        var thrdB = new Thread(() =>
+        {
+            streamingService.StartMovieForUser("vladyslave", "Drunken Master 2");
+            streamingService.ShowActiveUsers();
+        });
+        thrdB.Start();
+
         streamPool.GetPoolStatus();
         streamingService.StartMovieForUser("usr3", "Interstellar", "4K");
         Console.WriteLine("\nusr4 trying to connect:");
@@ -221,4 +249,66 @@ class Program
         streamPool.Cleanup();
         streamPool.GetPoolStatus();
     }
+
+    #endregion
+
+    #region Structural Pattenrs
+
+    private static void BridgeDemo()
+    {
+        var emailChannel = new EmailChannel();
+        var smsChannel = new SmsChannel();
+
+        var movieNotification = new MovieReleaseNotification(emailChannel);
+        movieNotification.SendNotification("One Punch Man: Eplogue is now available!", "user@example.com");
+
+        var subscriptionNotification = new SubscriptionExpiryNotification(smsChannel);
+        subscriptionNotification.SendNotification("Your subscription expires in 3 days", "+1234567890");
+    }
+
+    private static void FlyWeightDemo()
+    {
+        var movies = new List<Movie>
+        {
+            new("blah-blah", 2007, "ABCD", GenreType.Action),
+            new("123b", 2008, "EFGH", GenreType.Horror),
+            new("Shrek", 2006, "IKLM", GenreType.Comedy),
+            new("another blah-blah", 2009, "OP", GenreType.Thriller),
+            new("b321", 2005, "RSTQ", GenreType.Romance)
+        };
+
+        foreach (var movie in movies)
+        {
+            movie.Display();
+            Console.WriteLine();
+        }
+
+        Console.WriteLine($"Total genre flyweights created: {GenreFactory.GetCreatedGenresCount()}");
+
+    }
+
+    private static void ProxyDemo()
+    {
+        var movieProxy = new MovieDatabaseProxy();
+
+        Console.WriteLine("fetch from remote server:");
+        var details = movieProxy.GetMovieDetails("movie123");
+        Console.WriteLine(details);
+
+        Console.WriteLine("\nusing cache:");
+        details = movieProxy.GetMovieDetails("movie123");
+        Console.WriteLine(details);
+
+        Console.WriteLine("\nfetching reviews:");
+        var reviews = movieProxy.GetMovieReviews("movie123");
+        reviews.ForEach(Console.WriteLine);
+
+        Console.WriteLine("\nupdating rating:");
+        movieProxy.UpdateMovieRating("movie123", 8.5);
+    }
+
+
+    #endregion
+
 }
+
