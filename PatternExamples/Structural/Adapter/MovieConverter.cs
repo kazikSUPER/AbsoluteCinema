@@ -6,7 +6,7 @@ public class MovieConverter
 {
     public static Movie ConvertMovieToMp4(Movie movie)
     {
-        Console.WriteLine($"Convert {movie.Format} To Mp4\n");
+        Console.WriteLine($"Convert {movie.Format} To MP4\n");
         switch (movie.Format)
         {
             case "MKV":
@@ -36,7 +36,7 @@ public class MovieConverter
 
     private static Movie ConvertMkvToMp4(Movie movie)
     {
-        movie.Format = "Mp4";
+        movie.Format = "MP4";
         Task.Delay(1000).Wait();
         return movie;
     }

@@ -10,6 +10,7 @@ using AbsoluteCinema.PatternExamples.Shared.Models;
 using AbsoluteCinema.PatternExamples.Structural.Adapter;
 using AbsoluteCinema.PatternExamples.Structural.Bridge.Implementation.Channels;
 using AbsoluteCinema.PatternExamples.Structural.Bridge.Implementation.NotificationType;
+using AbsoluteCinema.PatternExamples.Structural.Composite;
 using AbsoluteCinema.PatternExamples.Structural.Proxy;
 
 namespace AbsoluteCinema;
@@ -28,10 +29,10 @@ class Program
         /////////////////////////////////
         
         ////////////////////////////////
-        AdapterDemo();
-        /*BridgeDemo();
-
-        FlyWeightDemo();
+        /*AdapterDemo();
+        BridgeDemo();*/
+        CompositeDemo();
+        /*FlyWeightDemo();
 
         ProxyDemo();*/
         ////
@@ -282,6 +283,66 @@ class Program
 
         var subscriptionNotification = new SubscriptionExpiryNotification(smsChannel);
         subscriptionNotification.SendNotification("Your subscription expires in 3 days", "+1234567890");
+    }
+
+    private static void CompositeDemo()
+    {
+        var CompositeExample = new Composite
+        {
+            Category = "Long Film",
+            Movies = new List<IComponent>
+            {
+                new Composite
+                {
+                    Category = "Comedy",
+                    Movies = new List<IComponent>
+                    {
+                        new Composite
+                        {
+                            Category = "Stand-up Comedy",
+                            Movies = new List<IComponent>
+                            {
+                                new Leaf
+                                {
+                                    movie = new ("123b", 2008, "EFGH", GenreType.Horror, "MP4")
+                                }
+                            }
+                        },
+                        new Leaf
+                        {
+                            movie = new("blah-blah", 2007, "ABCD", GenreType.Action, "MP4")
+                        }
+                    }
+                },
+                new Composite
+                {
+                    Category = "Thriller",
+                    Movies = new List<IComponent>
+                    {
+                        new Leaf
+                        {
+                            movie = new("another blah-blah", 2009, "OP", GenreType.Thriller, "MP4")
+                        }
+                    }
+                },
+                new Composite
+                {
+                    Category = "Horror",
+                    Movies = new List<IComponent>
+                    {
+                        new Leaf
+                        {
+                            movie = new("b321", 2005, "RSTQ", GenreType.Romance, "MP4")
+                        }
+                    }
+                },
+                new Leaf
+                {
+                    movie = new("Shrek", 2006, "IKLM", GenreType.Comedy, "MP4")
+                }
+            }
+        };
+        Console.WriteLine($"Amount of movies: {CompositeExample.Count()}");
     }
 
     private static void FlyWeightDemo()
