@@ -2,5 +2,5 @@
 
 public interface IGenreFlyweight
 {
-    void DisplayMovieInfo(string title, int year, string director);
+    void DisplayMovieInfo(string title, int year, string director, string format);
 }

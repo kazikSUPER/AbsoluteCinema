@@ -5,13 +5,19 @@ using AbsoluteCinema.PatternExamples.Structural.FlyWeight;
 
 namespace AbsoluteCinema.PatternExamples.Shared.Models;
 
-public class Movie(string title, int year, string director, GenreType genreType) : IMovie
+public class Movie(string title, int year, string director, GenreType genreType, string format) : IMovie
 {
     private readonly IGenreFlyweight _genre = GenreFactory.GetGenre(genreType);
 
     public void Display()
     {
-        _genre.DisplayMovieInfo(title, year, director);
+        _genre.DisplayMovieInfo(title, year, director, format);
+    }
+
+    public string Format
+    {
+        get => format;
+        set => format = value ?? throw new ArgumentNullException(nameof(value));
     }
 
     public void Play()

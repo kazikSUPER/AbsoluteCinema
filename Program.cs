@@ -7,6 +7,7 @@ using AbsoluteCinema.PatternExamples.Creational.SingleTone;
 using AbsoluteCinema.PatternExamples.Creational.StaticFactory;
 using AbsoluteCinema.PatternExamples.Shared.Enums;
 using AbsoluteCinema.PatternExamples.Shared.Models;
+using AbsoluteCinema.PatternExamples.Structural.Adapter;
 using AbsoluteCinema.PatternExamples.Structural.Bridge.Implementation.Channels;
 using AbsoluteCinema.PatternExamples.Structural.Bridge.Implementation.NotificationType;
 using AbsoluteCinema.PatternExamples.Structural.Proxy;
@@ -27,12 +28,12 @@ class Program
         /////////////////////////////////
         
         ////////////////////////////////
-        
-        BridgeDemo();
+        AdapterDemo();
+        /*BridgeDemo();
 
         FlyWeightDemo();
 
-        ProxyDemo();
+        ProxyDemo();*/
         ////
     }
 
@@ -254,6 +255,23 @@ class Program
 
     #region Structural Pattenrs
 
+    private static void AdapterDemo()
+    {
+        var movies = new List<Movie>
+        {
+            new("blah-blah", 2007, "ABCD", GenreType.Action, "MP4"),
+            new("123b", 2008, "EFGH", GenreType.Horror, "AVI"),
+            new("Shrek", 2006, "IKLM", GenreType.Comedy, "MKV"),
+            new("another blah-blah", 2009, "OP", GenreType.Thriller, "MKV"),
+            new("b321", 2005, "RSTQ", GenreType.Romance, "MP4")
+        };
+        foreach (var movie in movies)
+        {
+            MovieConverter.ConvertMovieToMp4(movie);
+            movie.Display();
+        }
+    }
+
     private static void BridgeDemo()
     {
         var emailChannel = new EmailChannel();
@@ -270,11 +288,11 @@ class Program
     {
         var movies = new List<Movie>
         {
-            new("blah-blah", 2007, "ABCD", GenreType.Action),
-            new("123b", 2008, "EFGH", GenreType.Horror),
-            new("Shrek", 2006, "IKLM", GenreType.Comedy),
-            new("another blah-blah", 2009, "OP", GenreType.Thriller),
-            new("b321", 2005, "RSTQ", GenreType.Romance)
+            new("blah-blah", 2007, "ABCD", GenreType.Action, "MP4"),
+            new("123b", 2008, "EFGH", GenreType.Horror, "MP4"),
+            new("Shrek", 2006, "IKLM", GenreType.Comedy, "MP4"),
+            new("another blah-blah", 2009, "OP", GenreType.Thriller, "MP4"),
+            new("b321", 2005, "RSTQ", GenreType.Romance, "MP4")
         };
 
         foreach (var movie in movies)
