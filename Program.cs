@@ -275,8 +275,13 @@ class Program
         };
         foreach (var movie in movies)
         {
-            MovieConverter.ConvertMovieToMp4(movie);
+            if (movie.Format != "MP4")
+            {
+                /*Console.WriteLine($"Sorry, you can't play this movie with {movie.Format}\n");*/
+                MovieConverter.ConvertMovieToMp4(movie);
+            }
             movie.Display();
+            movie.Play();
         }
     }
 
