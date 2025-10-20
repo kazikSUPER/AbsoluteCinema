@@ -1,4 +1,5 @@
-﻿using AbsoluteCinema.PatternExamples.Behavioural.ResponsibilityChain;
+﻿using AbsoluteCinema.PatternExamples.Behavioural.Iterator;
+using AbsoluteCinema.PatternExamples.Behavioural.ResponsibilityChain;
 using AbsoluteCinema.PatternExamples.Creational.AbstractFactory;
 using AbsoluteCinema.PatternExamples.Creational.Builder;
 using AbsoluteCinema.PatternExamples.Creational.FactoryMethod;
@@ -44,7 +45,10 @@ class Program
         Console.WriteLine("\nProxyDemo:\n");
         ProxyDemo();*/
         /////////////////////////////////
-        ResChainDemo();
+        /*Console.WriteLine("ResChainDemo:\n");
+        ResChainDemo();*/
+        Console.WriteLine("IteratorDemo:\n");
+        IteratorDemo();
     }
 
     #region Creational Patterns
@@ -434,6 +438,20 @@ class Program
         Console.WriteLine(bot.response("Operator do something"));
         Console.WriteLine(bot.response("Admin report about problem"));
         Console.WriteLine(bot.response("Lemon Sicilian"));
+    }
+
+    static void IteratorDemo()
+    {
+        var iter = new MovieIterator();
+        iter.AddItem(new Movie("blah-blah", 2007, "ABCD", GenreType.Action, "MP4"));
+        iter.AddItem(new Movie("another blah-blah", 2009, "OP", GenreType.Thriller, "MKV"));
+        iter.AddItem(new Movie("Shrek", 2006, "IKLM", GenreType.Comedy, "MKV"));
+        while (iter.HasNext())
+        {
+            iter.Next<Movie>().Display();
+            Console.WriteLine();
+        }
+        iter.Next<Movie>().Display();
     }
 
     #endregion
