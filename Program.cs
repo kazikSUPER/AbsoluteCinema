@@ -1,4 +1,5 @@
-﻿using AbsoluteCinema.PatternExamples.Creational.AbstractFactory;
+﻿using AbsoluteCinema.PatternExamples.Behavioural.ResponsibilityChain;
+using AbsoluteCinema.PatternExamples.Creational.AbstractFactory;
 using AbsoluteCinema.PatternExamples.Creational.Builder;
 using AbsoluteCinema.PatternExamples.Creational.FactoryMethod;
 using AbsoluteCinema.PatternExamples.Creational.ObjectPool;
@@ -30,7 +31,7 @@ class Program
         /////////////////////////////////
         
         ////////////////////////////////
-        Console.WriteLine("\nAdapterDemo:\n");
+        /*Console.WriteLine("\nAdapterDemo:\n");
         AdapterDemo();
         Console.WriteLine("\nBridgeDemo:\n");
         BridgeDemo();
@@ -41,8 +42,9 @@ class Program
         Console.WriteLine("\nDecoratorDemo:\n");
         DecoratorDemo();
         Console.WriteLine("\nProxyDemo:\n");
-        ProxyDemo();
-        ////
+        ProxyDemo();*/
+        /////////////////////////////////
+        ResChainDemo();
     }
 
     #region Creational Patterns
@@ -261,7 +263,7 @@ class Program
 
     #endregion
 
-    #region Structural Pattenrs
+    #region Structural Patterns
 
     private static void AdapterDemo()
     {
@@ -420,6 +422,19 @@ class Program
         movieProxy.UpdateMovieRating("movie123", 8.5);
     }
 
+
+    #endregion
+
+    #region Behavioural Patterns
+
+    static void ResChainDemo()
+    {
+        var bot = new BotResponse();
+        Console.WriteLine(bot.response("Bot 11010001010101010011010111010100101011"));
+        Console.WriteLine(bot.response("Operator do something"));
+        Console.WriteLine(bot.response("Admin report about problem"));
+        Console.WriteLine(bot.response("Lemon Sicilian"));
+    }
 
     #endregion
 
