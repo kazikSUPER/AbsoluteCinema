@@ -7,17 +7,22 @@ namespace AbsoluteCinema.PatternExamples.Shared.Models;
 
 public class Movie(string title, int year, string director, GenreType genreType, string format) : IMovie
 {
-    private readonly IGenreFlyweight _genre = GenreFactory.GetGenre(genreType);
+    private string _format = format;
 
-    public void Display()
-    {
-        _genre.DisplayMovieInfo(title, year, director, format);
-    }
+    public string Title => title;
+    public int Year => year;
+    public string Director => director;
+    public IGenreFlyweight Genre { get; } = GenreFactory.GetGenre(genreType);
 
     public string Format
     {
-        get => format;
-        set => format = value ?? throw new ArgumentNullException(nameof(value));
+        get => _format;
+        set => _format = value ?? throw new ArgumentNullException(nameof(value));
+    }
+
+    public void Display()
+    {
+        Genre.DisplayMovieInfo(title, year, director, _format);
     }
 
     public void Play()

@@ -1,6 +1,4 @@
-﻿// BRIDGE PATTERN - Notification System
-
-namespace AbsoluteCinema.PatternExamples.Structural.Bridge.Abstraction;
+﻿namespace AbsoluteCinema.PatternExamples.Structural.Bridge.Abstraction;
 
 public abstract class NotificationSender(INotificationChannel channel)
 {

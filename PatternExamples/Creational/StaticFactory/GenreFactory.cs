@@ -23,7 +23,13 @@ public class GenreFactory
                 _ => new GenreFlyweight("Unknown", "Uncategorized genre")
             };
         }
+
         return Genres[genreType];
+    }
+
+    public static GenreType GetGenreType(IGenreFlyweight genre)
+    {
+        return Genres.FirstOrDefault(g => g.Value == genre).Key;
     }
 
     public static int GetCreatedGenresCount()
