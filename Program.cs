@@ -46,9 +46,11 @@ class Program
         ProxyDemo();*/
         /////////////////////////////////
         /*Console.WriteLine("ResChainDemo:\n");
-        ResChainDemo();*/
+        ResChainDemo();
         Console.WriteLine("IteratorDemo:\n");
-        IteratorDemo();
+        IteratorDemo();*/
+        Console.WriteLine("MementoDemo:\n");
+        MementoDemo();
     }
 
     #region Creational Patterns
@@ -230,31 +232,37 @@ class Program
 
         var thrdA = new Thread(() =>
         {
+            var movie = new Movie("The Godfather", 1980, "King", GenreType.Action, "MP4");
             streamPool.GetPoolStatus();
-            streamingService.StartMovieForUser("kazik", "The Godfather", "4K");
+            streamingService.StartMovieForUser("kazik", movie, "4K");
         });
         thrdA.Start();
 
         var thrdB = new Thread(() =>
         {
-            streamingService.StartMovieForUser("vladyslave", "Drunken Master 2");
+            var movie = new Movie("Drunken Master 2", 1980, "King", GenreType.Action, "MP4");
+            streamingService.StartMovieForUser("vladyslave", movie);
             streamingService.ShowActiveUsers();
         });
         thrdB.Start();
 
         streamPool.GetPoolStatus();
-        streamingService.StartMovieForUser("usr3", "Interstellar", "4K");
+        var movie1 = new Movie("Interstellar", 1980, "King", GenreType.Action, "MP4");
+        streamingService.StartMovieForUser("usr3", movie1, "4K");
         Console.WriteLine("\nusr4 trying to connect:");
-        streamingService.StartMovieForUser("usr4", "Green Mile");
+        var movie2 = new Movie("Green Mile", 1980, "King", GenreType.Action, "MP4");
+        streamingService.StartMovieForUser("usr4", movie2);
 
         streamPool.GetPoolStatus();
         streamingService.StopMovieForUser("kazik");
         Console.WriteLine("\nusr4 trying again after kazik stopped:");
-        streamingService.StartMovieForUser("usr4", "Green Mile");
+        var movie3 = new Movie("Green Mile", 1980, "King", GenreType.Action, "MP4");
+        streamingService.StartMovieForUser("usr4", movie3);
         streamingService.ShowActiveUsers();
         streamPool.GetPoolStatus();
         streamingService.StopMovieForUser("vladyslave");
-        streamingService.StartMovieForUser("usr5", "Drunken Master", "720p");
+        var movie4 = new Movie("Drunken Master", 1980, "King", GenreType.Action, "MP4");
+        streamingService.StartMovieForUser("usr5", movie4, "720p");
 
         Console.WriteLine("\nFinal status:");
         streamingService.ShowActiveUsers();
@@ -452,6 +460,15 @@ class Program
             Console.WriteLine();
         }
         iter.Next<Movie>().Display();
+    }
+
+    static void MementoDemo()
+    {
+        var stream = new VideoStream(505);
+        stream.StartStream(new Movie("The Godfather", 1980, "King", GenreType.Action, "MP4"), "kazik");
+        var memento = stream.Save;
+        var revisedStream = memento.Revise;
+        revisedStream.StartStream(new Movie("The Godfather", 1980, "King", GenreType.Action, "MP4"), "kazik");
     }
 
     #endregion

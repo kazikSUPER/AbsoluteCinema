@@ -1,4 +1,6 @@
-﻿namespace AbsoluteCinema.PatternExamples.Creational.ObjectPool;
+﻿using AbsoluteCinema.PatternExamples.Behavioural.Memento;
+
+namespace AbsoluteCinema.PatternExamples.Shared.Models;
 
 public class VideoStream
 {
@@ -16,15 +18,15 @@ public class VideoStream
     }
 
     public void StartStream(
-        string movieTitle, 
+        Movie movie, 
         string userId, 
         string quality = "1080p"
     )
     {
         Console.WriteLine($"Starting stream {StreamId} for user {userId}");
-        Console.WriteLine($"  Movie: {movieTitle}, Quality: {quality}");
+        Console.WriteLine($"  Movie: {movie.Title}, Quality: {quality}");
 
-        MovieTitle = movieTitle;
+        MovieTitle = movie.Title;
         UserId = userId;
         Quality = quality;
         IsActive = true;
@@ -48,4 +50,6 @@ public class VideoStream
         StartTime = DateTime.UtcNow;
         Console.WriteLine($"VideoStream {StreamId} reset completed.");
     }
+    
+    public VideoStreamMemory Save => new VideoStreamMemory(this);
 }

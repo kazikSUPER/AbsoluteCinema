@@ -1,4 +1,6 @@
-﻿namespace AbsoluteCinema.PatternExamples.Creational.ObjectPool;
+﻿using AbsoluteCinema.PatternExamples.Shared.Models;
+
+namespace AbsoluteCinema.PatternExamples.Creational.ObjectPool;
 
 public class StreamingService
 {
@@ -11,9 +13,9 @@ public class StreamingService
         Console.WriteLine("StreamingService initialized");
     }
 
-    public bool StartMovieForUser(string userId, string movieTitle, string quality = "1080p")
+    public bool StartMovieForUser(string userId, Movie movie, string quality = "1080p")
     {
-        Console.WriteLine($"\n[StreamingService] User {userId} requesting to watch '{movieTitle}'");
+        Console.WriteLine($"\n[StreamingService] User {userId} requesting to watch '{movie.Title}'");
 
         if (_userStreams.ContainsKey(userId))
         {
@@ -29,7 +31,7 @@ public class StreamingService
             return false;
         }
 
-        stream.StartStream(movieTitle, userId, quality);
+        stream.StartStream(movie, userId, quality);
         _userStreams[userId] = stream;
 
         Console.WriteLine($"Stream ready for user {userId}!");
