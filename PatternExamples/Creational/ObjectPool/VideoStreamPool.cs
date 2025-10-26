@@ -1,4 +1,6 @@
-﻿namespace AbsoluteCinema.PatternExamples.Creational.ObjectPool;
+﻿using AbsoluteCinema.PatternExamples.Shared.Models;
+
+namespace AbsoluteCinema.PatternExamples.Creational.ObjectPool;
 
 using System.Collections.Concurrent;
 

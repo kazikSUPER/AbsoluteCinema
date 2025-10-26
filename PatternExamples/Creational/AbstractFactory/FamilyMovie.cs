@@ -1,4 +1,6 @@
-﻿namespace AbsoluteCinema.PatternExamples.Creational.AbstractFactory;
+﻿using AbsoluteCinema.PatternExamples.Behavioural.Template;
+
+namespace AbsoluteCinema.PatternExamples.Creational.AbstractFactory;
 
 public class FamilyMovie : IMovie
 {
@@ -13,5 +15,12 @@ public class FamilyMovie : IMovie
     public void Play()
     {
         Console.WriteLine($"Playing family movie: {_title}, Genre: {_genre}, Age Rating: {_ageRating}+");
+    }
+
+    public void Play(IQualityConverter converter, ISubtitles subtitles)
+    {
+        converter.Convert();
+        subtitles.Subtitles();
+        Play();
     }
 }

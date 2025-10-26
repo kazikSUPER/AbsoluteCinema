@@ -1,4 +1,4 @@
-﻿using AbsoluteCinema.PatternExamples.Wrapper;
+using AbsoluteCinema.PatternExamples.Wrapper;
 
 namespace AbsoluteCinema;
 

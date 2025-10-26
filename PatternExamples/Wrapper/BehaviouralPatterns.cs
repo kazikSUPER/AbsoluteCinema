@@ -5,7 +5,9 @@ using AbsoluteCinema.PatternExamples.Behavioural.Iterator;
 using AbsoluteCinema.PatternExamples.Behavioural.Mediator.Implementation;
 using AbsoluteCinema.PatternExamples.Behavioural.Observer.Implementation;
 using AbsoluteCinema.PatternExamples.Behavioural.ResponsibilityChain;
+using AbsoluteCinema.PatternExamples.Behavioural.State;
 using AbsoluteCinema.PatternExamples.Behavioural.Strategy.Implementation;
+using AbsoluteCinema.PatternExamples.Behavioural.Template;
 using AbsoluteCinema.PatternExamples.Behavioural.Visitor.Abstraction;
 using AbsoluteCinema.PatternExamples.Behavioural.Visitor.Implementation;
 using AbsoluteCinema.PatternExamples.Shared.Enums;
@@ -24,6 +26,9 @@ public abstract class BehaviouralPatterns
         ObserverDemo();
         StrategyDemo();
         VisitorDemo();
+        MementoDemo();
+        StateDemo();
+        TemplateDemo();
     }
 
     public static void ResChainDemo()
@@ -219,5 +224,38 @@ public abstract class BehaviouralPatterns
             element.Accept(analyticsVisitor);
         }
         analyticsVisitor.PrintStatistics();
+    }
+    
+    public static void MementoDemo()
+    {
+        var stream = new VideoStream(505);
+        stream.StartStream(new Movie("The Godfather", 1980, "King", GenreType.Action, "MP4"), "kazik");
+        var memento = stream.Save;
+        var revisedStream = memento.Revise;
+        revisedStream.StartStream(new Movie("The Godfather", 1980, "King", GenreType.Action, "MP4"), "kazik");
+    }
+
+    public static void StateDemo()
+    {
+        IAccountState account = new FreeAccount();
+        account.Download();
+        account = new BronzeAccount();
+        account.Download();
+        account = new SilverAccount();
+        account.Download();
+        account = new GoldAccount();
+        account.Download();
+        account = new PlatinumAccount();
+        account.Download();
+    }
+
+    public static void TemplateDemo()
+    {
+        var movie = new Movie("The Godfather", 1980, "King", GenreType.Action, "MP4");
+        movie.Play(new ConvertTo480p(), new AddSubtitles());
+        Console.WriteLine("||||||||||||||||||||||||||");
+        movie.Play(new ConvertTo480p(), new NoSubtitles());
+        Console.WriteLine("||||||||||||||||||||||||||");
+        movie.Play(new ConvertTo720p(), new AddSubtitles());
     }
 }
