@@ -1,6 +1,7 @@
 ﻿using AbsoluteCinema.PatternExamples.Behavioural.Iterator;
 using AbsoluteCinema.PatternExamples.Behavioural.ResponsibilityChain;
 using AbsoluteCinema.PatternExamples.Behavioural.State;
+using AbsoluteCinema.PatternExamples.Behavioural.Template;
 using AbsoluteCinema.PatternExamples.Creational.AbstractFactory;
 using AbsoluteCinema.PatternExamples.Creational.Builder;
 using AbsoluteCinema.PatternExamples.Creational.FactoryMethod;
@@ -51,9 +52,11 @@ class Program
         Console.WriteLine("IteratorDemo:\n");
         IteratorDemo();
         Console.WriteLine("MementoDemo:\n");
-        MementoDemo();*/
+        MementoDemo();
         Console.WriteLine("StateDemo:\n");
-        StateDemo();
+        StateDemo();*/
+        Console.WriteLine("TemplateDemo:\n");
+        TemplateDemo();
     }
 
     #region Creational Patterns
@@ -160,7 +163,7 @@ class Program
             $"EYOOO: {familySubscription.GetPlanName()}, {familySubscription.GetMaxQuality()}, {familySubscription.GetPrice()}"
         );
 
-        familyMovie.Play();
+        /*familyMovie.Play();*/
         familySubscription.Activate();
         Console.WriteLine($"   Profile created: {familyProfile.GetType().Name}");
     }
@@ -298,7 +301,7 @@ class Program
                 MovieConverter.ConvertMovieToMp4(movie);
             }
             movie.Display();
-            movie.Play();
+            /*movie.Play();*/
         }
     }
 
@@ -486,6 +489,16 @@ class Program
         account.Download();
         account = new PlatinumAccount();
         account.Download();
+    }
+
+    static void TemplateDemo()
+    {
+        var movie = new Movie("The Godfather", 1980, "King", GenreType.Action, "MP4");
+        movie.Play(new ConvertTo480p(), new AddSubtitles());
+        Console.WriteLine("||||||||||||||||||||||||||");
+        movie.Play(new ConvertTo480p(), new NoSubtitles());
+        Console.WriteLine("||||||||||||||||||||||||||");
+        movie.Play(new ConvertTo720p(), new AddSubtitles());
     }
 
     #endregion

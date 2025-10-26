@@ -1,4 +1,5 @@
 ﻿using AbsoluteCinema.PatternExamples.Behavioural.Memento;
+using AbsoluteCinema.PatternExamples.Behavioural.Template;
 using AbsoluteCinema.PatternExamples.Creational.AbstractFactory;
 using AbsoluteCinema.PatternExamples.Creational.StaticFactory;
 using AbsoluteCinema.PatternExamples.Shared.Enums;
@@ -23,7 +24,12 @@ public class Movie(string title, int year, string director, GenreType genreType,
         set => format = value ?? throw new ArgumentNullException(nameof(value));
     }
 
-    public void Play()
+    public void Play(IQualityConverter converter, ISubtitles subtitles)
     {
+        converter.Convert();
+        subtitles.Subtitles();
+        Display();
     }
+
+    public void Play(){}
 }
