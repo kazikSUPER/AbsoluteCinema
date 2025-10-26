@@ -1,5 +1,6 @@
 ﻿using AbsoluteCinema.PatternExamples.Behavioural.Iterator;
 using AbsoluteCinema.PatternExamples.Behavioural.ResponsibilityChain;
+using AbsoluteCinema.PatternExamples.Behavioural.State;
 using AbsoluteCinema.PatternExamples.Creational.AbstractFactory;
 using AbsoluteCinema.PatternExamples.Creational.Builder;
 using AbsoluteCinema.PatternExamples.Creational.FactoryMethod;
@@ -48,9 +49,11 @@ class Program
         /*Console.WriteLine("ResChainDemo:\n");
         ResChainDemo();
         Console.WriteLine("IteratorDemo:\n");
-        IteratorDemo();*/
+        IteratorDemo();
         Console.WriteLine("MementoDemo:\n");
-        MementoDemo();
+        MementoDemo();*/
+        Console.WriteLine("StateDemo:\n");
+        StateDemo();
     }
 
     #region Creational Patterns
@@ -469,6 +472,20 @@ class Program
         var memento = stream.Save;
         var revisedStream = memento.Revise;
         revisedStream.StartStream(new Movie("The Godfather", 1980, "King", GenreType.Action, "MP4"), "kazik");
+    }
+
+    static void StateDemo()
+    {
+        IAccountState account = new FreeAccount();
+        account.Download();
+        account = new BronzeAccount();
+        account.Download();
+        account = new SilverAccount();
+        account.Download();
+        account = new GoldAccount();
+        account.Download();
+        account = new PlatinumAccount();
+        account.Download();
     }
 
     #endregion

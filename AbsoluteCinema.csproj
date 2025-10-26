@@ -8,7 +8,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="PatternExamples\Behavioural\State\" />
       <Folder Include="PatternExamples\Behavioural\Template\" />
     </ItemGroup>
 
