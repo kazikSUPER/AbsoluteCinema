@@ -7,9 +7,8 @@ internal static class Program
     public static void Main()
     {
         // чисто для організації коду xd
-        CreationalPatterns.Demo();
-        StructuralPatterns.Demo();
+        /*CreationalPatterns.Demo();
+        StructuralPatterns.Demo();*/
         BehaviouralPatterns.Demo();
     }
 }
-
