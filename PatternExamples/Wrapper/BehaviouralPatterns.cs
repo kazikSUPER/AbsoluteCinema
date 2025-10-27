@@ -208,7 +208,6 @@ public abstract class BehaviouralPatterns
         }
         reportVisitor.PrintReport();
 
-
         Console.WriteLine("\n2. Export to XML Visitor:");
         var xmlVisitor = new XmlExportVisitor();
         foreach (var element in cinemaElements)
@@ -237,15 +236,15 @@ public abstract class BehaviouralPatterns
 
     public static void StateDemo()
     {
-        IAccountState account = new FreeAccount();
+        Account account = new ();
         account.Download();
-        account = new BronzeAccount();
+        account.RankUp();
         account.Download();
-        account = new SilverAccount();
+        account.RankUp();
         account.Download();
-        account = new GoldAccount();
+        account.RankUp();
         account.Download();
-        account = new PlatinumAccount();
+        account.RankUp();
         account.Download();
     }
 

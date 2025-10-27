@@ -2,8 +2,17 @@
 
 public class PlatinumAccount : IAccountState
 {
+    public PlatinumAccount(IAccountState account)
+    {
+        
+    }
     public void Download()
     {
         Console.WriteLine($"{GetType().Name}\nChoose quality:\n480p\n720p\n1080p\n2K\n4K\nUHD\n");
+    }
+
+    public IAccountState RankUp()
+    {
+        return this;
     }
 }
